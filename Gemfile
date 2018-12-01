@@ -5,8 +5,9 @@ gem 'rails', '~> 5.2.1'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # DB/Model
-gem 'pg', '>= 0.18', '< 2.0'
 
+# Middleware
+gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 
 # View/Front
