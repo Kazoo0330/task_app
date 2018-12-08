@@ -26,6 +26,13 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'rspec-rails'
   gem 'faker'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'launchy'
+  gem 'selenium-webdriver'
+  gem 'spring-commands-rspec'
+  gem 'factory_bot_rails'
+  gem 'chromedriver-helper'
 end
 
 group :development do
@@ -35,11 +42,12 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'spring-commands-rspec'
 end
 
-group :test do
-  gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
-  gem 'chromedriver-helper'
-end
+# group :test do
+#   gem 'capybara', '>= 2.15'
+#   gem 'selenium-webdriver'
+#   gem 'chromedriver-helper'
+# end
 
