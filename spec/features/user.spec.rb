@@ -4,7 +4,6 @@ RSpec.feature "User functionality", type: :feature do
 
   background do
    user = FactoryBot.create(:user)
-   # visit root_path
   end
 
   scenario "new session page check" do

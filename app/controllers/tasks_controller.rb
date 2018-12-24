@@ -6,8 +6,7 @@ class TasksController < ApplicationController
     @tasks = Task.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     if params[:back]
@@ -17,8 +16,7 @@ class TasksController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @task = Task.new(task_params)
