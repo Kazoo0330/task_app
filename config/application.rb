@@ -23,5 +23,6 @@ module TaskApp
       g.ficture_replacement :facrtory_bot, dir: "spec/factories"
     end
     config.generators.system_tests = nil
+    config.i18n.default_locale = :ja
   end
 end
