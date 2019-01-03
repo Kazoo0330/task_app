@@ -12,16 +12,16 @@
   <body>
     <header>
       <% if user_signed_in? %>
-        <%= link_to "タスク登録", tasks_path %>
-        <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+        <%= link_to t("view.template.new_task"), tasks_path %>
+        <li><%= link_to t("view.template.logout"), destroy_user_session_path, method: :delete %></li>
       <% else %>
-        <li><%= link_to 'ログイン', new_user_session_path %></li>
-        <li><%= link_to 'サインアップ', new_user_registration_path %></li>
+        <li><%= link_to t("view.template.login"), new_user_session_path %></li>
+        <li><%= link_to t("view.template.sign_up"), new_user_registration_path %></li>
       <% end %>
     </header>
 
     <% if user_signed_in? %>
-      <div>現在ログイン中のユーザー： <%= current_user.name %></div>
+      <div><%= t("view.template.current_user") %><%= current_user.name %></div>
     <% end %>
 
     <% if notice %>
