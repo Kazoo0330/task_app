@@ -16,3 +16,5 @@ ja:
       back: "もどる↩️ "
       time: "作成日時🕔："
       expiration: "タスク期限💣："
+      high_priority: "優先順位⬆️ "
+      low_priority: "優先順位⬇️ "
