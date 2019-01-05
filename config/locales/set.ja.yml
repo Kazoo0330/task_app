@@ -14,4 +14,7 @@ ja:
       edit: "編集✏️ "
       destroy: "削除🗑 "
       back: "もどる↩️ "
-      time: "🕓作成日時："
+      time: "作成日時🕔："
+      expiration: "タスク期限💣："
+      high_priority: "優先順位⬆️ "
+      low_priority: "優先順位⬇️ "

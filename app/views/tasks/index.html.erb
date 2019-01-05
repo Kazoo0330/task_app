@@ -1,5 +1,7 @@
 <h1><%= t("view.task.index") %></h1>
 
+<%= link_to t("view.task.high_priority"), tasks_path(sort_expired: "true") %>
+<%# <%= link_to t("view.task.low_priority"), tasks_path(sort_expired: "true") %>
 <table>
   <thead>
     <tr>
@@ -14,6 +16,7 @@
       <tr>
         <td><%= task.title %></td>
         <td><%= task.content %></td>
+        <td><%= t("view.task.expiration") %><%= task.expires_on %></td>
         <td><%= t("view.task.time") %><%= task.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
         <td><%= link_to t("view.task.show"), task %></td>
         <td><%= link_to t("view.task.edit"), edit_task_path(task) %></td>
