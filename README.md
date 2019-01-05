@@ -9,7 +9,7 @@ TaskApp is one of the SIMPLEST task management application using Ruby on Rails.
 
 The application is focused on training of DIC mentor. It requires of using a bunch of knowlwdge for Ruby on Rails.
 
-The application is considered to be at an alpha level of advancement for coding skills.
+This is considered to be at an alpha level of advancement for coding skills.
 
 ## Further Information
 
