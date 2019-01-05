@@ -1,4 +1,10 @@
 ja:
+  enums:
+    task:
+      status:
+        waiting: "未着手"
+        working: "着手中"
+        completed: "完了✅"
   view:
     template:
       new_task: "タスク登録⭐️"
@@ -18,3 +24,4 @@ ja:
       expiration: "タスク期限💣："
       high_priority: "優先順位⬆️ "
       low_priority: "優先順位⬇️ "
+      status: "進捗状況🐝："

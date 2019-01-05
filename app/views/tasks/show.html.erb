@@ -13,5 +13,10 @@
   <%= @task.expires_on %>
 </p>
 
+<p>
+<strong><%= t("view.task.status") %></strong>
+  <%= @task.status %>
+</p>
+
 <%= link_to t("view.task.edit"), edit_task_path(@task) %> |
 <%= link_to t("view.task.back"), tasks_path %>

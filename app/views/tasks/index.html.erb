@@ -16,6 +16,7 @@
       <tr>
         <td><%= task.title %></td>
         <td><%= task.content %></td>
+        <td><%= t("view.task.status") %><%= task.status %></td>
         <td><%= t("view.task.expiration") %><%= task.expires_on %></td>
         <td><%= t("view.task.time") %><%= task.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
         <td><%= link_to t("view.task.show"), task %></td>

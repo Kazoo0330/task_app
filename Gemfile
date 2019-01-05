@@ -5,6 +5,8 @@ gem 'rails', '~> 5.2.1'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # DB/Model
+gem 'enum'
+gem 'enum_help'
 
 # Middleware
 gem 'pg', '>= 0.18', '< 2.0'
