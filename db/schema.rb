@@ -1,4 +1,4 @@
-ActiveRecord::Schema.define(version: 2019_01_05_095605) do
+ActiveRecord::Schema.define(version: 2019_01_05_120400) do
 
   enable_extension "plpgsql"
 
@@ -8,6 +8,7 @@ ActiveRecord::Schema.define(version: 2019_01_05_095605) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "expires_on", default: -> { "now()" }, null: false
+    t.integer "status", default: 0, null: false
   end
 
   create_table "users", force: :cascade do |t|

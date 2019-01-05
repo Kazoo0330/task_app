@@ -51,6 +51,6 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit %i(title content expires_on)
+      params.require(:task).permit %i(title content expires_on status)
     end
 end
