@@ -9,6 +9,17 @@ class TasksController < ApplicationController
     else
       @tasks = Task.all.order(created_at: :desc)
     end
+
+    # @search_tasks = Task.search(params[:search])
+
+    # search functionalities are below.
+    if params[:task].present?
+      @tasks = @tasks.search_with_title(params[:task][:title]) #if params[:task][:title].present?
+      @tasks = @tasks.search_with_content(params[:task][:content])
+      if params[:task][:status].present?
+        @tasks = @tasks.search_with_status(params[:task][:status])
+      end
+    end
   end
 
   def show; end
