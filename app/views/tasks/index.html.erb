@@ -11,7 +11,7 @@
     <%= form.label :status, t("view.task.status") %>
     <%= form.select :status, Task.statuses.keys, include_blank: true %>
 
-    <%= form.submit t("view.template.new_task") %>
+    <%= form.submit t("view.task.search") %>
   <% end %>
 </div>
 
