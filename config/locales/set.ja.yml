@@ -1,4 +1,10 @@
 ja:
+  enums:
+    task:
+      status:
+        waiting: "未着手"
+        working: "着手中"
+        completed: "完了✅"
   view:
     template:
       new_task: "タスク登録⭐️"
@@ -8,7 +14,7 @@ ja:
       current_user: "現在ログイン中のユーザー："
     task:
       index: "タスク一覧📖"
-      title: "タスク名"
+      title: "タスク名🐕🐾"
       content: "タスク内容🔎"
       show: "詳細🔎"
       edit: "編集✏️ "
@@ -18,3 +24,5 @@ ja:
       expiration: "タスク期限💣："
       high_priority: "優先順位⬆️ "
       low_priority: "優先順位⬇️ "
+      status: "進捗状況🐝："
+      search: "検索🐾"

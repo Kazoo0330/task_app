@@ -9,6 +9,14 @@ class TasksController < ApplicationController
     else
       @tasks = Task.all.order(created_at: :desc)
     end
+
+    if params[:task].present?
+      @tasks = @tasks.search_with_title(params[:task][:title])
+      @tasks = @tasks.search_with_content(params[:task][:content])
+      if params[:task][:status].present?
+        @tasks = @tasks.search_with_status(params[:task][:status])
+      end
+    end
   end
 
   def show; end
@@ -51,6 +59,6 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit %i(title content expires_on)
+      params.require(:task).permit %i(title content expires_on status)
     end
 end

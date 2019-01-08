@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
 
+
   it 'is valid with completed insertion with title and content' do
     task = Task.new(
       title: 'みんなにエサやり🐕',
@@ -54,5 +55,35 @@ RSpec.describe Task, type: :model do
     content: "#{content_txt}"
     )
     expect(task).to be_invalid
+  end
+
+  describe 'search functionality test' do
+    before do
+      FactoryBot.create(
+        :task,
+          title: 'みんなでおさんぽ🐕',
+          content: 'どこいこうかな',
+          status: Task::statuses['未着手🦖'],
+      )
+      FactoryBot.create(
+        :task,
+          title: 'みんなにエサやり🐕',
+          content: 'ぜんぶたべるかな',
+          status: Task::statuses['着手中🐕💨'],
+      )
+      FactoryBot.create(
+        :task,
+          title: 'みんなであそぶ⚽️',
+          content: 'こうえん行こう',
+          status: Task::statuses['完了✅'],
+      )
+    end
+
+    # it 'is sure that three tasks can be found with searching like this' do
+      # expect(Task.search_with_title('みんな')).to include 'みんなでおさんぽ🐕'#, 'みんなにエサやり🐕', 'みんなであそぶ⚽️'
+    # end
+    it 'is valid with title search' do
+      expect(Task.search_with_title('みんな').count).to eq 3
+    end
   end
 end

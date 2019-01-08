@@ -26,6 +26,11 @@
     <%= form.date_select :expires_on %>
   </div>
 
+  <div class="field">
+    <%= form.label t("view.task.status") %>
+    <%= form.select :status, Task.statuses.keys %>
+  </div>
+
   <div class="actions">
     <%= form.submit t("view.template.new_task") %>
   </div>

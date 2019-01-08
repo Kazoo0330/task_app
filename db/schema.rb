@@ -1,4 +1,4 @@
-ActiveRecord::Schema.define(version: 2019_01_05_095605) do
+ActiveRecord::Schema.define(version: 2019_01_07_125448) do
 
   enable_extension "plpgsql"
 
@@ -8,6 +8,10 @@ ActiveRecord::Schema.define(version: 2019_01_05_095605) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "expires_on", default: -> { "now()" }, null: false
+    t.integer "status", default: 0, null: false
+    t.index ["content"], name: "index_tasks_on_content"
+    t.index ["status"], name: "index_tasks_on_status"
+    t.index ["title"], name: "index_tasks_on_title"
   end
 
   create_table "users", force: :cascade do |t|
