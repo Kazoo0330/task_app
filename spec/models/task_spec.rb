@@ -79,9 +79,6 @@ RSpec.describe Task, type: :model do
       )
     end
 
-    # it 'is sure that three tasks can be found with searching like this' do
-      # expect(Task.search_with_title('みんな')).to include 'みんなでおさんぽ🐕'#, 'みんなにエサやり🐕', 'みんなであそぶ⚽️'
-    # end
     it 'is valid with title search' do
       expect(Task.search_with_title('みんな').count).to eq 3
     end
