@@ -5,9 +5,9 @@ RSpec.feature "TASK management functionality", type: :feature do
   background do
     user = FactoryBot.create(:user)
 
-    FactoryBot.create(:task, title: 'first task', content: 'first task content', expires_on: Time.zone.today + 1, status: Task::statuses['未着手🦖'])
-    FactoryBot.create(:task, title: 'second task', content: 'second task content', expires_on: Time.zone.today + 5, status: Task::statuses['着手中🐕💨'])
-    FactoryBot.create(:task, title: 'third task', content: 'third task content', expires_on: Time.zone.today + 3, status: Task::statuses['完了✅'])
+    FactoryBot.create(:task, title: 'first task', content: 'first task content', expires_on: Time.zone.today + 1, status: Task::statuses['未着手🦖'], priority: Task::priorities['あとでいいや🙈'])
+    FactoryBot.create(:task, title: 'second task', content: 'second task content', expires_on: Time.zone.today + 5, status: Task::statuses['着手中🐕💨'], priority: Task::priorities['やりたい🙉'])
+    FactoryBot.create(:task, title: 'third task', content: 'third task content', expires_on: Time.zone.today + 3, status: Task::statuses['完了✅'], priority: Task::priorities['今すぐやらなきゃ🙊'])
 
     # FactoryBot.create(:second_task)
     # FactoryBot.create(:task3)
@@ -31,7 +31,7 @@ RSpec.feature "TASK management functionality", type: :feature do
 
   scenario "testing that tasks are listed completely by ordering created_at" do
     visit tasks_path
-    all('tr td')[5].click_link '詳細🔎'
+    all('tr td')[6].click_link '詳細🔎'
     expect(page).to have_content 'third task'
 
   end
@@ -39,14 +39,14 @@ RSpec.feature "TASK management functionality", type: :feature do
   scenario 'testing that tasks are able to be sorted by priority button' do
     visit tasks_path
     click_link '優先順位⬆️'
-    all('tr td')[5].click_link '詳細🔎'
+    all('tr td')[6].click_link '詳細🔎'
     expect(page).to have_content 'first task'
   end
 
   scenario 'testing that tasks are able to be sorted by priority button with the second task' do
     visit tasks_path
     click_link '優先順位⬆️'
-    all('tr td')[21].click_link '詳細🔎'
+    all('tr td')[24].click_link '詳細🔎'
     expect(page).to have_content 'second task'
   end
 
@@ -128,4 +128,11 @@ RSpec.feature "TASK management functionality", type: :feature do
     expect(page).to have_content 'third task content'
   end
 
+  scenario 'ensure that the task with the highest priority can be found at the top of tasks.' do
+    visit tasks_path
+    all('tr td')[6].click_link '詳細🔎'
+    expect(page).to have_content '今すぐやらなきゃ🙊'
+    expect(page).to_not have_content 'あとでいいや🙈'
+    expect(page).to_not have_content 'やりたい🙉'
+  end
 end
