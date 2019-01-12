@@ -8,9 +8,9 @@ ja:
   view:
     template:
       new_task: "タスク登録⭐️"
-      login: "ログイン"
-      logout: "ログアウト"
-      sign_up: "サインアップ🚼"
+      login: "❯❯❯ ログイン"
+      logout: "❯❯❯ ログアウト"
+      sign_up: "❯❯❯ サインアップ🚼"
       current_user: "現在ログイン中のユーザー："
     task:
       index: "タスク一覧📖"
@@ -23,7 +23,7 @@ ja:
       time: "作成日時🕔："
       expiration: "タスク期限💣："
       priority: "優先順位🤔："
-      high_priority: "優先順位⬆️ "
+      high_priority: "❯❯❯ 優先順位⬆️ "
       low_priority: "優先順位⬇️ "
       status: "進捗状況🐝："
-      search: "検索🐾"
+      search: "❯❯❯ 検索🐾"
