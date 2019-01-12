@@ -19,7 +19,7 @@ RSpec.feature "User functionality", type: :feature do
     fill_in 'Password', with: 'password'
     click_on 'Log in'
 
-    expect(page).to have_content 'Signed in successfully.'
+    expect(page).to have_content 'ログインしました。'
     expect(page).to have_content '現在ログイン中のユーザー'
   end
 
@@ -34,7 +34,7 @@ RSpec.feature "User functionality", type: :feature do
     fill_in 'Password confirmation', with: 'password'
     click_on 'Sign up'
 
-    expect(page).to have_content 'Welcome! You have signed up successfully.'
+    expect(page).to have_content 'アカウント登録が完了しました。'
   end
 
   scenario "from logging in to create a new task" do
@@ -45,14 +45,14 @@ RSpec.feature "User functionality", type: :feature do
     fill_in 'Password', with: 'password'
     click_on 'Log in'
 
-    expect(page).to have_content 'New Task'
+    expect(page).to have_content 'タスク登録⭐️'
 
-    click_on 'New Task'
-    expect(page).to have_content 'New Task'
+    click_on 'タスク登録⭐️'
+    expect(page).to have_content 'タスク登録⭐️'
 
-    fill_in 'Title', with: 'task1'
-    fill_in 'Content', with: 'feed everyone'
-    click_on 'Create Task'
+    fill_in 'task_title', with: 'task1'
+    fill_in 'task_content', with: 'feed everyone'
+    click_on 'タスク登録⭐️'
 
     expect(page).to have_content 'taskを作成しました✨'
   end
