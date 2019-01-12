@@ -21,12 +21,12 @@ RSpec.describe User, type: :model do
   it "is invalid without an email Mk-II" do
     user = User.new(email: nil)
     user.valid?
-    expect(user.errors[:email]).to include("can't be blank")
+    expect(user.errors[:email]).to include('を入力してください')
   end
 
   it "is invalid without a name to create a new user" do
     user = User.new(name: nil)
     user.valid?
-    expect(user.errors[:name]).to include("can't be blank")
+    expect(user.errors[:name]).to include('を入力してください')
   end
 end
