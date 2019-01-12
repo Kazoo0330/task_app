@@ -20,6 +20,8 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'kaminari'
+gem 'bootstrap', '~> 4.1.1'
+gem 'jquery-rails'
 
 gem 'devise'
 gem 'dotenv-rails'
