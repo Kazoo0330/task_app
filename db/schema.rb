@@ -1,4 +1,4 @@
-ActiveRecord::Schema.define(version: 2019_01_09_030206) do
+ActiveRecord::Schema.define(version: 2019_01_13_131109) do
 
   enable_extension "plpgsql"
 
@@ -10,9 +10,11 @@ ActiveRecord::Schema.define(version: 2019_01_09_030206) do
     t.date "expires_on", default: -> { "now()" }, null: false
     t.integer "status", default: 0, null: false
     t.integer "priority", default: 0, null: false
+    t.bigint "user_id"
     t.index ["content"], name: "index_tasks_on_content"
     t.index ["status"], name: "index_tasks_on_status"
     t.index ["title"], name: "index_tasks_on_title"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -29,4 +31,5 @@ ActiveRecord::Schema.define(version: 2019_01_09_030206) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "tasks", "users"
 end
