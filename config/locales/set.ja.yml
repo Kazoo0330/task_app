@@ -1,4 +1,11 @@
 ja:
+  views:
+    pagination:
+      first: "&laquo; 最初"
+      last: "最後 &raquo;"
+      previous: "&lsaquo; 前"
+      next: "次 &rsaquo;"
+      truncate: "..."
   enums:
     task:
       status:
@@ -27,3 +34,5 @@ ja:
       low_priority: "優先順位⬇️ "
       status: "進捗状況🐝："
       search: "❯❯❯ 検索🐾"
+      user: "誰のタスクかな？🙋"
+      user_name: "作成者🙋"
