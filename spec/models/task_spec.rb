@@ -2,11 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
 
+    user = FactoryBot.create(:user)
 
   it 'is valid with completed insertion with title and content' do
     task = Task.new(
       title: 'みんなにエサやり🐕',
-      content: '食べてくれるかな'
+      content: '食べてくれるかな',
+      user: user
     )
     expect(task).to be_valid
   end
@@ -64,18 +66,21 @@ RSpec.describe Task, type: :model do
           title: 'みんなでおさんぽ🐕',
           content: 'どこいこうかな',
           status: Task::statuses['未着手🦖'],
+          user: user
       )
       FactoryBot.create(
         :task,
           title: 'みんなにエサやり🐕',
           content: 'ぜんぶたべるかな',
           status: Task::statuses['着手中🐕💨'],
+          user: user
       )
       FactoryBot.create(
         :task,
           title: 'みんなであそぶ⚽️',
           content: 'こうえん行こう',
           status: Task::statuses['完了✅'],
+          user: user
       )
     end
 
