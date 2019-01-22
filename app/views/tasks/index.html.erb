@@ -23,6 +23,7 @@
       <th><%= t("view.task.title") %></th>
       <th><%= t("view.task.content") %></th>
       <th><%= t("view.task.status") %></th>
+      <th><%= t("view.task.user") %></th>
       <th><%= t("view.task.priority") %></th>
       <th><%= t("view.task.expiration") %></th>
       <th><%= t("view.task.time") %></th>
@@ -36,6 +37,7 @@
         <td><%= task.title %></td>
         <td><%= task.content %></td>
         <td><%= t("view.task.status") %><%= task.status %></td>
+        <td><%= t("view.task.user_name") %><%= task.user.name %></td>
         <td><%= t("view.task.priority") %><%= task.priority %></td>
         <td><%= t("view.task.expiration") %><%= task.expires_on %></td>
         <td><%= t("view.task.time") %><%= task.created_at.strftime('%Y/%m/%d %H:%M')  %></td>

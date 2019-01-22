@@ -23,5 +23,10 @@
   <%= @task.priority %>
 </p>
 
+<p>
+<strong><%= t("view.task.user") %></strong>
+  <%= @task.user.name %>
+</p>
+
 <%= link_to t("view.task.edit"), edit_task_path(@task) %> |
 <%= link_to t("view.task.back"), tasks_path %>
