@@ -11,6 +11,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def login_requirement
+    redirect_to new_user_session_path, notice: t("view.template.login?") unless user_signed_in?
+  end
+
   # def basic_certifiaction
   #   authenticate_or_request_with_http_basic do |name, password|
   #     name == ENV['BASIC_AUTH_NAME'] && password == ENV['BASIC_AUTH_PASSWORD'] if Rails.env == "production"

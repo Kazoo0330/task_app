@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  before_action :login_requirement
   before_action :authenticate_user!, only: %i(new edit update destroy)
   before_action :set_task, only: %i(show edit update destroy)
 
@@ -64,4 +65,5 @@ class TasksController < ApplicationController
     def task_params
       params.require(:task).permit %i(title content expires_on status priority)
     end
+
 end
