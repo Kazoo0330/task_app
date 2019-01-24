@@ -196,5 +196,11 @@ RSpec.feature "TASK management functionality", type: :feature do
       expect(page).to have_content 'test_user'
     end
 
+    scenario '(19) ensure that the user show action functionality properly working' do
+      visit tasks_path
+      click_link 'マイページ👶'
+      expect(page).to have_content 'メールアドレス📧'
+      expect(page).to have_content 'test@example.com'
+    end
   end
 end
