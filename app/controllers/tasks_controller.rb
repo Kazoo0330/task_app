@@ -4,12 +4,15 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i(show edit update destroy)
 
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    # @tasks = Task.all.order(created_at: :desc)
+    @tasks = current_user.tasks.order(created_at: :desc)
 
     if params[:sort_expired]
-      @tasks = Task.all.order(expires_on: :asc)
+      # @tasks = Task.all.order(expires_on: :asc)
+      @tasks = current_user.tasks.order(expires_on: :asc)
     else
-      @tasks = Task.all.order(created_at: :desc)
+      # @tasks = Task.all.order(created_at: :desc)
+      @tasks = current_user.tasks.order(crated_at: :desc)
     end
 
     if params[:task].present?
