@@ -20,6 +20,7 @@ ja:
       sign_up: "❯❯❯ サインアップ🚼"
       current_user: "現在ログイン中のユーザー："
       login?: "先にログインしてね💡"
+      logged_out: "ログアウトしました🦕"
     task:
       index: "タスク一覧📖"
       title: "タスク名🐕🐾"
