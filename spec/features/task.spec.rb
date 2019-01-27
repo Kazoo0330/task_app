@@ -2,8 +2,10 @@ require 'rails_helper'
 
 RSpec.feature "TASK management functionality", type: :feature do
 
-  background do
+ background do
+
     user = FactoryBot.create(:user)
+    # user = FactoryBot.create(:user, name: 'test_user', email: 'test@example.com', password: 'password')
 
     FactoryBot.create(:task, title: 'first task', content: 'first task content', expires_on: Time.zone.today + 1, status: Task::statuses['未着手🦖'], priority: Task::priorities['あとでいいや🙈'], user: user)
     FactoryBot.create(:task, title: 'second task', content: 'second task content', expires_on: Time.zone.today + 5, status: Task::statuses['着手中🐕💨'], priority: Task::priorities['やりたい🙉'], user: user)
@@ -12,20 +14,21 @@ RSpec.feature "TASK management functionality", type: :feature do
     FactoryBot.create(:task, title: 'fifth task', content: 'fifth task content', expires_on: Time.zone.today + 8, status: Task::statuses['完了✅'], priority: Task::priorities['今すぐやらなきゃ🙊'], user: user)
     FactoryBot.create(:task, title: 'sixth task', content: 'sixth task content', expires_on: Time.zone.today + 9, status: Task::statuses['完了✅'], priority: Task::priorities['今すぐやらなきゃ🙊'], user: user)
 
+    login_as(user, :scope => :user)
   end
 
-  feature 'throughout feature spec test requires user to be logged in' do
-    background do
-      visit new_user_session_path
-      fill_in 'user_email', with: "test@example.com"
-      fill_in 'Password', with: 'password'
-      click_on 'Log in'
-    end
-
+  # feature 'throughout feature spec test requires user to be logged in' do
+  #   background do
+  #     visit new_user_session_path
+  #     fill_in 'Email', with: "test@example.com"
+  #     fill_in 'Password', with: 'password'
+  #     click_on 'Log in'
+  #   end
+  login_with_warden! do
     scenario "(1)task index test" do
 
       visit "/"
-
+      binding.pry
       expect(page).to have_content "fourth task"
       expect(page).to have_content "fifth task"
       expect(page).to have_content "sixth task"
@@ -201,6 +204,26 @@ RSpec.feature "TASK management functionality", type: :feature do
       click_link 'マイページ👶'
       expect(page).to have_content 'メールアドレス📧'
       expect(page).to have_content 'test@example.com'
+    end
+
+    scenario '(20) user functionality should be able to allow current_user to logout' do
+      visit tasks_path
+      click_link 'マイページ👶'
+      expect(page).to have_content 'test@example.com'
+
+      click_link '❯❯❯ ログアウト'
+      expect(page).to have_content 'ログアウトしました。'
+    end
+
+    scenario '(21) logged in user should be unable to visit the user registration page' do
+      visit tasks_path
+      click_link 'マイページ👶'
+      visit new_user_registration_path
+      expect(page).to have_content 'すでにログインしています。'
+    end
+
+    scenario '(22) the only current_user related tasks should be shown' do
+      
     end
   end
 end
