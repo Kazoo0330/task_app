@@ -12,7 +12,7 @@ class TasksController < ApplicationController
       @tasks = current_user.tasks.order(expires_on: :asc)
     else
       # @tasks = Task.all.order(created_at: :desc)
-      @tasks = current_user.tasks.order(crated_at: :desc)
+      @tasks = current_user.tasks.order(created_at: :desc)
     end
 
     if params[:task].present?

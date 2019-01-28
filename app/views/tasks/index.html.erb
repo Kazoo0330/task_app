@@ -32,7 +32,6 @@
   </thead>
 
   <tbody>
-    <% if @task %>
       <% @tasks.each do |task| %>
         <tr>
           <td><%= task.title %></td>
@@ -47,7 +46,6 @@
           <td><%= link_to t("view.task.destroy"), task, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' %></td>
         </tr>
       <% end %>
-    <% end %>
   </tbody>
 </table>
 
