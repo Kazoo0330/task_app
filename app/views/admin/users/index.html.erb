@@ -1,0 +1,8 @@
+<h2>ADMIN</h2>
+
+<% @users.each do |user| %>
+  <div>ID:<%= user.id%></div>
+  <div>NAME:<%= user.name %></div>
+  <div>EMAIL:<%= user.email %></div>
+  <div>ADMIN:<%= user.admin %></div>
+<% end %>
