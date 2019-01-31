@@ -40,3 +40,6 @@ ja:
       user_name: "作成者🙋"
       user_email: "メールアドレス📧"
       mypage: "マイページ👶"
+      nothing: "まだタスクはありません🐕💨"
+      no_rights: "そんなタスクはありません🙅"
+      diff_user: "そんな人はいません🙅"
