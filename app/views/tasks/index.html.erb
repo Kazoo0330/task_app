@@ -54,4 +54,6 @@
 <br>
 
 <%= link_to t("view.template.new_task"), new_task_path, class: 'btn btn-sm btn-outline-dark' %>
-<%= paginate @tasks %>
+<% if @tasks %>
+  <%= paginate @tasks %>
+<% end %>
