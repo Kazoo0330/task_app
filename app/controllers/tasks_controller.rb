@@ -1,14 +1,16 @@
 class TasksController < ApplicationController
+  before_action :login_requirement
   before_action :authenticate_user!, only: %i(new edit update destroy)
   before_action :set_task, only: %i(show edit update destroy)
+  before_action :correct_user?, only: %i(show edit destroy)
 
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = current_user.tasks.order(created_at: :desc)
 
     if params[:sort_expired]
-      @tasks = Task.all.order(expires_on: :asc)
+      @tasks = current_user.tasks.order(expires_on: :asc)
     else
-      @tasks = Task.all.order(created_at: :desc)
+      @tasks = current_user.tasks.order(created_at: :desc)
     end
 
     if params[:task].present?
@@ -34,7 +36,8 @@ class TasksController < ApplicationController
   def edit; end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
+    # @task = Task.new(task_params)
     if @task.save
       redirect_to tasks_path, notice: "taskを作成しました✨ "
     else
@@ -63,4 +66,13 @@ class TasksController < ApplicationController
     def task_params
       params.require(:task).permit %i(title content expires_on status priority)
     end
+
+    def correct_user?
+      @task = Task.find_by(id:params[:id])
+      if @task.user_id != current_user.id
+        flash[:notice] = t("view.task.no_rights")
+        redirect_to tasks_path
+      end
+    end
+
 end
