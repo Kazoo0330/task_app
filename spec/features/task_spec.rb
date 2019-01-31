@@ -2,10 +2,24 @@ require 'rails_helper'
 
 RSpec.feature "TASK management functionality", type: :feature do
 
+  def login
+    visit new_user_session_path
+    fill_in 'Email', with: "test@example.com"
+    fill_in 'Password', with: 'password'
+    click_on 'Log in'
+  end
+
+  def second_user_login
+    visit new_user_session_path
+    fill_in 'Email', with: "test2@example.com"
+    fill_in 'Password', with: 'password'
+    click_on 'Log in'
+  end
+
  background do
 
     user = FactoryBot.create(:user)
-    # user = FactoryBot.create(:user, name: 'test_user', email: 'test@example.com', password: 'password')
+    user2 = FactoryBot.create(:user, name: 'test_user2', email: 'test2@example.com', password: 'password')
 
     FactoryBot.create(:task, title: 'first task', content: 'first task content', expires_on: Time.zone.today + 1, status: Task::statuses['未着手🦖'], priority: Task::priorities['あとでいいや🙈'], user: user)
     FactoryBot.create(:task, title: 'second task', content: 'second task content', expires_on: Time.zone.today + 5, status: Task::statuses['着手中🐕💨'], priority: Task::priorities['やりたい🙉'], user: user)
@@ -13,22 +27,16 @@ RSpec.feature "TASK management functionality", type: :feature do
     FactoryBot.create(:task, title: 'fourth task', content: 'fourth task content', expires_on: Time.zone.today + 7, status: Task::statuses['完了✅'], priority: Task::priorities['今すぐやらなきゃ🙊'], user: user)
     FactoryBot.create(:task, title: 'fifth task', content: 'fifth task content', expires_on: Time.zone.today + 8, status: Task::statuses['完了✅'], priority: Task::priorities['今すぐやらなきゃ🙊'], user: user)
     FactoryBot.create(:task, title: 'sixth task', content: 'sixth task content', expires_on: Time.zone.today + 9, status: Task::statuses['完了✅'], priority: Task::priorities['今すぐやらなきゃ🙊'], user: user)
+    FactoryBot.create(:task, title: 'second user task', content: 'second user task content', expires_on: Time.zone.today + 9, status: Task::statuses['完了✅'], priority: Task::priorities['今すぐやらなきゃ🙊'], user: user2)
 
-    login_as(user, :scope => :user)
+    login
+
   end
 
-  # feature 'throughout feature spec test requires user to be logged in' do
-  #   background do
-  #     visit new_user_session_path
-  #     fill_in 'Email', with: "test@example.com"
-  #     fill_in 'Password', with: 'password'
-  #     click_on 'Log in'
-  #   end
-  login_with_warden! do
-    scenario "(1)task index test" do
+  feature 'throughout feature spec test requires user to be logged in' do
 
+    scenario "(1)task index test" do
       visit "/"
-      binding.pry
       expect(page).to have_content "fourth task"
       expect(page).to have_content "fifth task"
       expect(page).to have_content "sixth task"
@@ -222,8 +230,18 @@ RSpec.feature "TASK management functionality", type: :feature do
       expect(page).to have_content 'すでにログインしています。'
     end
 
-    scenario '(22) the only current_user related tasks should be shown' do
-      
+    scenario '(22) the second user should be existing' do
+      visit tasks_path
+
+      click_link '❯❯❯ ログアウト'
+
+      second_user_login #second user login method prepared at the  first.
+
+      visit tasks_path
+      click_link 'マイページ👶'
+      visit new_user_registration_path
+      expect(page).to have_content 'test_user2'
     end
+
   end
 end
