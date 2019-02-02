@@ -3,7 +3,7 @@ class Admin::UsersController < ApplicationController
 
   def index
     if current_user.admin?
-      @users = User.all
+      @users = User.includes(:tasks)
     else
       render 'tasks/index', notice: t("view.template.not_admin")
     end
