@@ -23,6 +23,11 @@ RSpec.feature "User functionalities", type: :feature do
     click_on 'Log in'
   end
 
+  def logout
+    visit tasks_path
+    click_link '❯❯❯ ログアウト'
+  end
+
  background do
 
     user = FactoryBot.create(:user)
@@ -48,12 +53,12 @@ RSpec.feature "User functionalities", type: :feature do
       click_link 'マイページ👶'
       expect(page).to have_content 'test@example.com'
 
-      click_link '❯❯❯ ログアウト'
+      logout
       expect(page).to have_content 'ログアウトしました。'
     end
 
     scenario "(2)check if it's able to see new session path" do
-      click_link '❯❯❯ ログアウト'
+      logout
       expect(page).to have_content 'ログアウトしました。'
 
       expect(page).to have_content 'Remember me'
@@ -88,7 +93,7 @@ RSpec.feature "User functionalities", type: :feature do
       click_link 'マイページ👶'
       expect(page).to have_content 'test@example.com'
 
-      click_link '❯❯❯ ログアウト'
+      logout
       expect(page).to have_content 'ログアウトしました。'
     end
 
@@ -100,9 +105,8 @@ RSpec.feature "User functionalities", type: :feature do
     end
 
     scenario '(8) the second user should be existing' do
-      visit tasks_path
 
-      click_link '❯❯❯ ログアウト'
+      logout
 
       second_user_login #second user login method prepared at the  first.
 
@@ -114,9 +118,7 @@ RSpec.feature "User functionalities", type: :feature do
 
     scenario '(9) admin user should be able to see the user index page' do
 
-      visit tasks_path
-      click_link '❯❯❯ ログアウト'
-
+      logout
       admin_user_login
 
       visit admin_users_path
@@ -130,6 +132,47 @@ RSpec.feature "User functionalities", type: :feature do
 
       visit user_path(third_user)
       expect(page).to have_content 'そんな人はいません🙅'
+    end
+
+    scenario '(11) admin user ought to be able to create a new user with an admin role' do
+
+      logout
+      admin_user_login
+      visit admin_users_path
+
+      click_on '新規ユーザー作成🌟'
+      expect(page).to have_content 'Password confirmation'
+
+      fill_in 'Name', with: 'created_admin_user'
+      fill_in 'Email', with: 'created_admin_user@example.com'
+      check 'Admin'
+      fill_in 'Password', with: 'password'
+      fill_in 'Password confirmation', with: 'password'
+
+      click_on '登録する'
+
+      expect(page).to have_content 'true'
+      expect(page).to have_content 'created_admin_user'
+    end
+
+    scenario '(12) admin user ought to be able to create new user with a normal user role' do
+      logout
+      admin_user_login
+      visit admin_users_path
+
+      click_on '新規ユーザー作成🌟'
+      expect(page).to have_content 'Password confirmation'
+
+      fill_in 'Name', with: 'created_normal_user'
+      fill_in 'Email', with: 'created_normal_user@example.com'
+      uncheck 'Admin'
+      fill_in 'Password', with: 'password'
+      fill_in 'Password confirmation', with: 'password'
+
+      click_on '登録する'
+
+      expect(page).to have_content 'false'
+      expect(page).to have_content 'created_normal_user'
     end
 
   end
