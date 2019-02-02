@@ -16,10 +16,21 @@ RSpec.feature "User functionalities", type: :feature do
     click_on 'Log in'
   end
 
+  def admin_user_login
+    visit new_user_session_path
+    fill_in 'Email', with: "admin@example.com"
+    fill_in 'Password', with: 'password'
+    click_on 'Log in'
+  end
+
  background do
 
     user = FactoryBot.create(:user)
-    second_user = FactoryBot.create(:user, name: 'test_user2', email: 'test2@example.com', password: 'password')
+    # second_user = FactoryBot.create(:user, name: 'test_user2', email: 'test2@example.com', password: 'password')
+
+    second_user = FactoryBot.create(:user2)
+
+    admin = FactoryBot.create(:admin_user)
 
     FactoryBot.create(:task, title: 'first task', content: 'first task content', expires_on: Time.zone.today + 1, status: Task::statuses['未着手🦖'], priority: Task::priorities['あとでいいや🙈'], user: user)
    FactoryBot.create(:task, title: 'second user task', content: 'second user task content', expires_on: Time.zone.today + 9, status: Task::statuses['完了✅'], priority: Task::priorities['今すぐやらなきゃ🙊'], user: second_user)
@@ -99,6 +110,26 @@ RSpec.feature "User functionalities", type: :feature do
       click_link 'マイページ👶'
       visit new_user_registration_path
       expect(page).to have_content 'test_user2'
+    end
+
+    scenario '(9) admin user should be able to see the user index page' do
+
+      visit tasks_path
+      click_link '❯❯❯ ログアウト'
+
+      admin_user_login
+
+      visit admin_users_path
+      expect(page).to have_content 'test_user'
+      expect(page).to have_content 'test_user2'
+      expect(page).to have_content 'admin_user'
+      expect(page).to have_content 'ADMIN'
+    end
+
+    scenario '(10) every single user shoould not be able to see others info' do
+
+      visit user_path(third_user)
+      expect(page).to have_content 'そんな人はいません🙅'
     end
 
   end

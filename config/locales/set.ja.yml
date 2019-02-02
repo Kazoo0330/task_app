@@ -22,6 +22,8 @@ ja:
       login?: "先にログインしてね💡"
       logged_out: "ログアウトしました🦕"
       not_admin: "権限がないよ🙅"
+      user_index: "ユーザー一覧📖"
+      user_show: "ユーザー詳細🔎"
     task:
       index: "タスク一覧📖"
       title: "タスク名🐕🐾"
