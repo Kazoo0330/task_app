@@ -36,6 +36,25 @@
     <%= form.select :priority, Task.priorities.keys %>
   </div>
 
+  <% if action_name == :new %>
+    <% labels.each do |label| %>
+      <div class="field">
+        <%= form.check_box :label_ids,
+          { multiple: true,
+          checked: label[:checked],
+          disabled: label[:disabled],
+          include_hidden: false },
+          label[:id]
+        %>
+        <label style="background-color: aquamarine">
+          <%= label.name %>
+        </label>
+      </div>
+    <% end %>
+  <% else %>
+    <%= form.collection_check_boxes :label_ids, @labels, :id, :name %>
+  <% end %>
+
   <div class="actions">
     <%= form.submit t("view.template.new_task") %>
   </div>

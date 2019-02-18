@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   before_action :login_requirement
   before_action :authenticate_user!, only: %i(new edit update destroy)
   before_action :set_task, only: %i(show edit update destroy)
+  before_action :set_labels, only: %i(index new edit create)
   before_action :correct_user?, only: %i(show edit destroy)
 
   def index
@@ -18,6 +19,9 @@ class TasksController < ApplicationController
       @tasks = @tasks.search_with_content(params[:task][:content])
       if params[:task][:status].present?
         @tasks = @tasks.search_with_status(params[:task][:status])
+      end
+      if params[:task][:label_id].present?
+        @tasks = @tasks.search_with_label(params[:task][:label_id])
       end
     end
     @tasks = @tasks.page(params[:page]).per(5)
@@ -36,8 +40,8 @@ class TasksController < ApplicationController
   def edit; end
 
   def create
+    # binding.pry
     @task = current_user.tasks.build(task_params)
-    # @task = Task.new(task_params)
     if @task.save
       redirect_to tasks_path, notice: "taskを作成しました✨ "
     else
@@ -63,8 +67,19 @@ class TasksController < ApplicationController
       @task = Task.find(params[:id])
     end
 
+    def set_labels
+      @labels = Label.all
+    end
+
     def task_params
-      params.require(:task).permit %i(title content expires_on status priority)
+      params.require(:task).permit(
+        :title,
+        :content,
+        :expires_on,
+        :status,
+        :priority,
+        label_ids: []
+      )
     end
 
     def correct_user?

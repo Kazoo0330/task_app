@@ -1,19 +1,26 @@
 <h2>ADMIN</h2>
 
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, t("layout.views.error_indicate")) %></h2>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <% @users.each do |user| %>
   <div>ID:<%= user.id%></div>
   <div>NAME:<%= user.name %></div>
   <div>EMAIL:<%= user.email %></div>
   <div>ADMIN:<%= user.admin %></div>
   <div>TASK_AMOUNT:<%= user.tasks.count %>
-  <% if current_user == user %>
-      <%= link_to t("view.task.destroy"), admin_user_path(user), method: :delete, data: { confirm: 'Are you reeeeeeeeeeeeeeally sure?' }, class: 'btn btn-sm btn-outline-success' %>
-      <%= link_to t("view.task.edit"), edit_admin_user_path(user), class: 'btn btn-sm btn-outline-primary' %>
-  <% else %>
-      <%= link_to t("view.task.destroy"), admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' %>
-  <% end %>
-
+  <%= link_to t("view.task.edit"), edit_admin_user_path(user), class: 'btn btn-sm btn-outline-primary' %>
+  <%= link_to t("view.task.destroy"), admin_user_path(user), method: :delete, data: { confirm: 'F**k you sure??????' }, class: 'btn btn-sm btn-outline-danger' %>
 <% end %>
+
 <br />
 <span>
   <%= link_to t("view.template.user_new"), new_admin_user_path %>

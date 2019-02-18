@@ -2,6 +2,7 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
+    @user = current_user
     if current_user.admin?
       @users = User.includes(:tasks)
     else
@@ -37,11 +38,15 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    if @user == current_user
-      redirect_to tasks_path
+    if @user.destroy
+      unless current_user
+        redirect_to new_user_session_path
+      else
+        render admin_users_path
+      end
     else
       redirect_to admin_users_path
+      flash[:notice] = "the last administrator cannot be deleted."
     end
   end
 
