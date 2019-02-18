@@ -16,10 +16,17 @@ RSpec.feature "TASK management functionality", type: :feature do
     click_on 'Log in'
   end
 
+  def create_labels
+    label = FactoryBot.create(:label)
+    label2 = FactoryBot.create(:second_label)
+    label3 = FactoryBot.create(:third_label)
+  end
+
  background do
 
     user = FactoryBot.create(:user)
     user2 = FactoryBot.create(:user, name: 'test_user2', email: 'test2@example.com', password: 'password')
+
 
     FactoryBot.create(:task, title: 'first task', content: 'first task content', expires_on: Time.zone.today + 1, status: Task::statuses['未着手🦖'], priority: Task::priorities['あとでいいや🙈'], user: user)
     FactoryBot.create(:task, title: 'second task', content: 'second task content', expires_on: Time.zone.today + 5, status: Task::statuses['着手中🐕💨'], priority: Task::priorities['やりたい🙉'], user: user)
@@ -241,6 +248,37 @@ RSpec.feature "TASK management functionality", type: :feature do
       click_link 'マイページ👶'
       visit new_user_registration_path
       expect(page).to have_content 'test_user2'
+    end
+
+    scenario '(23) creating a new task with labels' do
+      create_labels
+      visit new_task_path
+
+      expect(page).to have_content 'おつかい'
+      expect(page).to have_content 'おるすばん'
+      expect(page).to have_content 'おてつだい'
+    end
+
+    scenario '(24) ensure that search_with_label works properly' do
+      create_labels
+      visit tasks_path
+
+      # save_and_open_page
+      all('tr td')[8].click_link '編集✏️'
+      binding.pry
+      expect(page).to have_content 'おつかい'
+      expect(page).to have_content 'おるすばん'
+      expect(page).to have_content 'おてつだい'
+
+      check 'task_label_ids_6'
+      # save_and_open_page
+      find(".actions").click
+      click_link 'もどる↩️'
+      expect(page).to have_content 'sixth task'
+
+      select 'おてつだい', from: 'task_label_id'
+      click_on '検索🐾'
+      # expect(page).to have_content 'sixth task'
     end
 
   end
